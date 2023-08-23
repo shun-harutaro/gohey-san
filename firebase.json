@@ -1,0 +1,39 @@
+{
+  "hosting": {
+    "public": "./hosting/dist",
+    "rewrites": [{
+      "source": "/api/**",
+      "function": "app"
+    },
+    {
+      "source": "**",
+      "destination": "/index.html"
+    }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    }
+  ],
+  "emulators": {
+      "hosting": {
+        "port": "8080"
+      },
+      "functions": {
+        "port": "3000"
+      }
+  }
+}

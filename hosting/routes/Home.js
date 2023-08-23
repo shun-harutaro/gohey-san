@@ -3,7 +3,7 @@ import React from "react";
 export const Home = () => {
   return (
     <>
-      <h1>React app</h1>
+      <h1>五平さん(Gohey San)</h1>
     </>
   );
 };
