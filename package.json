@@ -1,0 +1,30 @@
+{
+  "name": "gohey-san",
+  "version": "1.0.0",
+  "description": "This app is made on Two gate Dev camp 2023",
+  "main": "index.js",
+  "scripts": {
+    "hosting": "npm run dev -w hosting",
+    "functions": "npm run dev -w functions",
+    "dev": "run-p client server",
+    "lint": "eslint --fix ./**/*.jsx",
+    "format": "prettier --write ./**/*.jsx",
+    "lint-fix": "run-s lint format",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "author": "shun-harutaro",
+  "license": "ISC",
+  "workspaces": [
+    "hosting",
+    "functions"
+  ],
+  "devDependencies": {
+    "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-react": "^7.33.2",
+    "husky": "^8.0.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.0.2"
+  }
+}
