@@ -29,6 +29,11 @@ module.exports = merge(common,  {
                 target: 'http://localhost:3000',
                 secure: false,
                 logLevel: 'debug',
+            },
+            '/bot/**': {
+                target: 'http://localhost:3001',
+                secure: false,
+                logLevel: 'debug',
             }
         }
     },
