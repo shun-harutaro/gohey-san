@@ -6,7 +6,7 @@
   "scripts": {
     "hosting": "npm run dev -w hosting",
     "functions": "npm run dev -w functions",
-    "dev": "run-p client server",
+    "dev": "run-p hosting functions",
     "lint": "eslint --fix ./**/*.jsx",
     "format": "prettier --write ./**/*.jsx",
     "lint-fix": "run-s lint format",
