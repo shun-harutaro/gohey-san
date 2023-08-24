@@ -1,22 +1,19 @@
 const express = require("express");
-const botRoutes = require("./routes/bot");
+//const path = require("path");
+const bot = require("./routes/bot");
 const functions = require("firebase-functions");
-//const axios = require("axios");
 const app = express();
 const PORT = 3000;
-
 const NODE_ENV = process.env.NODE_ENV;
 
-app.use("/api/bot", botRoutes);
+app.use("/api/bot", bot);
 app.get("/api/*", (req, res) => {
   res.write("Error");
   res.end();
 });
 
 if (NODE_ENV === "development") {
-  require("dotenv").config({
-    path: "./.env.local"
-  });
+  require("dotenv").config();
   app.listen(PORT, () => {
     console.log("development mode");
     console.log(`Example app listening on port ${PORT}`);
