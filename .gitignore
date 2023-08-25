@@ -67,3 +67,6 @@ node_modules/
 
 # Production
 dist
+
+# credentials
+credential.json

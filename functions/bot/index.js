@@ -3,9 +3,12 @@ const functions = require("firebase-functions");
 const line = require("@line/bot-sdk");
 const app = express();
 const PORT = 3001;
-require("dotenv").config();
 
 const NODE_ENV = process.env.NODE_ENV;
+if (NODE_ENV==="development") {
+  require("dotenv").config({path: "./.env.local"});
+}
+
 const config = {
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
   channelSecret: process.env.CHANNEL_SECRET
@@ -44,7 +47,8 @@ if (NODE_ENV === "development") {
 } else {
   exports.bot = functions
     .runWith({
-        secrets: ["CHANNEL_ACCESS_TOKEN", "CHANNEL_SECRET"]
+      secrets: ["CHANNEL_ACCESS_TOKEN", "CHANNEL_SECRET"]
     })
+    .region("asia-northeast1")
     .https.onRequest(app);
 }

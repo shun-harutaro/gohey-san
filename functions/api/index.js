@@ -2,15 +2,12 @@ const express = require("express");
 const functions = require("firebase-functions");
 const app = express();
 const PORT = 3000;
-
 const NODE_ENV = process.env.NODE_ENV;
 
-app.get("/api/user", (req, res) => {
-  res.write("Hello World");
-  res.end();
-});
+const usersRoutes = require("./routes/users")
 
-app.get("/api/*", (req, res) => {
+app.use("/api/users", usersRoutes);
+app.get("/api/**", (req, res) => {
   res.write("Error");
   res.end();
 });
@@ -25,5 +22,6 @@ if (NODE_ENV === "development") {
   module.exports = api;
 } else {
   exports.api = functions
+    .region("asia-northeast1")
     .https.onRequest(app);
 }
