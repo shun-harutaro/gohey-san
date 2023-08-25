@@ -3,13 +3,11 @@
     "public": "./hosting/dist",
     "rewrites": [{
       "source": "/api/**",
-      "function": "api",
-      "region": "asia-northeast1"
+      "function": "api"
     },
     {
       "source": "/bot/**",
-      "function": "bot",
-      "region": "asia-northeast1"
+      "function": "bot"
     },
     {
       "source": "**",
@@ -29,9 +27,9 @@
       "ignore": [
         "node_modules",
         ".git",
-        ".env",
         "firebase-debug.log",
-        "firebase-debug.*.log"
+        "firebase-debug.*.log",
+        "env-cmdrc.json"
       ]
     }
   ],

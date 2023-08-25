@@ -3,11 +3,8 @@ const router = express.Router();
 const axios = require("axios");
 const { initializeApp, applicationDefault, cert } = require("firebase-admin/app");
 const {getFirestore, Timestamp, FieldValue, Filter} = require("firebase-admin/firestore");
-const { defineString } = require("firebase-functions/params");
-//const NODE_ENV = process.env.NODE_ENV;
-//const envPath = NODE_ENV==="development" ? ".env.local" : ".env";
-//require("dotenv").config({ path: envPath })
-const clientId = defineString("CLIENT_ID");
+//const { defineString } = require("firebase-functions/params");
+//const clientId = defineString("CLIENT_ID");
 const serviceAccount = require("../../credential.json");
 initializeApp({
   credential: cert(serviceAccount)
@@ -32,7 +29,7 @@ router.get("/:idToken", (req, res) => {
           "https://api.line.me/oauth2/v2.1/verify",
           {
             id_token: req.params.idToken,
-            client_id: clientId.value()
+            client_id: process.env.CLIENT_ID
           },
           {
             headers: {

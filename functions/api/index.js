@@ -21,13 +21,5 @@ const api = () => {
 if (NODE_ENV === "development") {
   module.exports = api;
 } else {
-  exports.api = onRequest(
-    { region: "asia-northeast1" },
-    app
-  )
-/*
-    functions
-    .region("asia-northeast1")
-    .https.onRequest(app);
-*/
+  exports.api = onRequest(app)
 }

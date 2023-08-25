@@ -6,11 +6,6 @@ const app = express();
 const PORT = 3001;
 
 const NODE_ENV = process.env.NODE_ENV;
-/*
-if (NODE_ENV==="development") {
-  require("dotenv").config();
-}
-*/
 require("dotenv").config();
 //const channelAccessToken = defineSecret("CHANNEL_ACCESS_TOKEN");
 //const channelSecret = defineSecret("CHANNEL_SECRET");
@@ -51,18 +46,10 @@ const bot = () => {
 if (NODE_ENV === "development") {
     module.exports = bot;
 } else {
-  exports.bot = onRequest(
-    { region: "asia-northeast1",
+  exports.bot = onRequest(app,
+    //{ region: "asia-northeast1",
       //secrets: ["channelAccessToken", "channelSecret"]
-      secrets: ["CHANNEL_ACCESS_TOKEN", "CHANNEL_SECRET"]
-    },app
+      //secrets: ["CHANNEL_ACCESS_TOKEN", "CHANNEL_SECRET"]
+    //}
   )
-/*
-    functions
-    .runWith({
-      secrets: ["CHANNEL_ACCESS_TOKEN", "CHANNEL_SECRET"]
-    })
-    .region("asia-northeast1")
-    .https.onRequest(app);
-*/
 }
