@@ -1,5 +1,5 @@
 const express = require("express");
-const functions = require("firebase-functions");
+const { onRequest } = require("firebase-functions/v2/https")
 const app = express();
 const PORT = 3000;
 const NODE_ENV = process.env.NODE_ENV;
@@ -21,7 +21,13 @@ const api = () => {
 if (NODE_ENV === "development") {
   module.exports = api;
 } else {
-  exports.api = functions
+  exports.api = onRequest(
+    { region: "asia-northeast1" },
+    app
+  )
+/*
+    functions
     .region("asia-northeast1")
     .https.onRequest(app);
+*/
 }

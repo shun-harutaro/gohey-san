@@ -29,7 +29,7 @@
       "ignore": [
         "node_modules",
         ".git",
-        ".env.local",
+        ".env",
         "firebase-debug.log",
         "firebase-debug.*.log"
       ]
