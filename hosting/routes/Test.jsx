@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import liff from "@line/liff";
 
-export const Home = () => {
+export const Test = () => {
   const [profile, setProfile] = useState("");
   const [post, setPost] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
   const getUserInfo = () => {
-    liff.init({ liffId: process.env.REACT_APP_LIFF_ID }).then(() => {
+    liff.init({ liffId: process.env.REACT_APP_LIFF_ID_TEST }).then(() => {
       setMessage("LIFF init succeeded");
       if (!liff.isLoggedIn()) {
         liff.login({}); // ログインしてなければログイン
