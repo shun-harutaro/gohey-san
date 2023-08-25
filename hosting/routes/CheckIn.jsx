@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import liff from "@line/liff";
+//import { Auth } from "../auth/Auth";
 
 export const CheckIn = () => {
   const [qrCodeData, setQrCodeData] = useState('');
+  //const [result, setResult] = useState('');
 
   useEffect(() => {
-    liff.init({ liffId: process.env.REACT_APP_LIFF_ID_CHECKIN })
+    liff.init({ liffId: process.env.REACT_APP_LIFF_ID})
   }, []);
 
   const handleScan = () => {

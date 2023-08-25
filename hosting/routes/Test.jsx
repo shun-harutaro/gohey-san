@@ -8,7 +8,7 @@ export const Test = () => {
   const [error, setError] = useState("");
 
   const getUserInfo = () => {
-    liff.init({ liffId: process.env.REACT_APP_LIFF_ID_TEST }).then(() => {
+    liff.init({ liffId: process.env.REACT_APP_LIFF_ID}).then(() => {
       setMessage("LIFF init succeeded");
       if (!liff.isLoggedIn()) {
         liff.login({}); // ログインしてなければログイン
