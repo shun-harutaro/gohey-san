@@ -1,18 +1,19 @@
 {
   "hosting": {
     "public": "./hosting/dist",
-    "rewrites": [{
-      "source": "/api/**",
-      "function": "api"
-    },
-    {
-      "source": "/bot/**",
-      "function": "bot"
-    },
-    {
-      "source": "**",
-      "destination": "/index.html"
-    }
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "function": "api"
+      },
+      {
+        "source": "/bot/**",
+        "function": "bot"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ],
     "ignore": [
       "firebase.json",
@@ -28,17 +29,20 @@
         "node_modules",
         ".git",
         "firebase-debug.log",
-        "firebase-debug.*.log",
-        "env-cmdrc.json"
+        "firebase-debug.*.log"
       ]
     }
   ],
   "emulators": {
-      "hosting": {
-        "port": "8080"
-      },
-      "functions": {
-        "port": "3000"
-      }
+    "hosting": {
+      "port": "8080"
+    },
+    "functions": {
+      "port": "3000"
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }

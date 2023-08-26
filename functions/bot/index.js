@@ -1,5 +1,6 @@
 const express = require("express");
-const { onRequest } = require("firebase-functions/v2/https");
+//const { onRequest } = require("firebase-functions/v2/https");
+const functions = require("firebase-functions")
 const { defineSecret } = require("firebase-functions/params");
 const line = require("@line/bot-sdk");
 const app = express();
@@ -15,12 +16,12 @@ const config = {
   channelSecret: process.env.CHANNEL_SECRET
 }
 
-app.post("/bot/webhook", line.middleware(config),
+app.post("/webhook", line.middleware(config),
   async (req, res) => {
     const result = await Promise.all(req.body.events.map(handleEvent));
     res.json(result);
 });
-app.get("/bot/*", (req, res) => {
+app.get("/**", (req, res) => {
   res.write("Error");
   res.end();
 });
@@ -46,10 +47,12 @@ const bot = () => {
 if (NODE_ENV === "development") {
     module.exports = bot;
 } else {
-  exports.bot = onRequest(app,
+  exports.bot = functions
+    .https.onRequest(app)
+  //onRequest(app)
     //{ region: "asia-northeast1",
       //secrets: ["channelAccessToken", "channelSecret"]
       //secrets: ["CHANNEL_ACCESS_TOKEN", "CHANNEL_SECRET"]
     //}
-  )
+
 }
