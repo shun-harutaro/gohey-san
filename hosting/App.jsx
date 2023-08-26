@@ -12,22 +12,22 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 const App = () => {
   const [message, setMessage] = useState("");
   const [log, setLog] = useState("");
-  const initLiff = () => {
-    liff.init({ liffId: process.env.REACT_APP_LIFF_ID }).then(() => {
-      if (!liff.isLoggedIn()) {
-        liff.login({}); // ログインしてなければログイン
-      } else if (liff.isInClient()) {
-        const idToken = liff.getIDToken();
-        if (isResistered(idToken)) {
-          setMessage("you are resistered");
-        } else {
-          setMessage("you are not resistered");
-        }
+  const initLiff = async () => {
+    await liff.init({ liffId: process.env.REACT_APP_LIFF_ID });
+    if (!liff.isLoggedIn()) {
+      liff.login({}); // ログインしてなければログイン
+    } else if (liff.isInClient()) {
+      const idToken = liff.getIDToken();
+      const isResistered = await validateIsResistered(idToken);
+      if (isResistered) {
+        setMessage("you are resistered");
+      } else {
+        setMessage("you are not resistered");
       }
-    });
+    }
   };
 
-  const isResistered = async (idToken) => {
+  const validateIsResistered = async (idToken) => {
     const url = new URL(`${BASE_URL}/api/users/${idToken}`);
     try {
       const res = await axios.get(url);
