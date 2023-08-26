@@ -23,6 +23,7 @@ const App = () => {
         setMessage("you are resistered");
       } else {
         setMessage("you are not resistered");
+        await register(idToken);
       }
     }
   };
@@ -35,7 +36,17 @@ const App = () => {
       return true;
     } catch (err) {
       setLog(JSON.stringify(err.response.data));
-      return false;
+    }
+  };
+
+  const register = async (idToken) => {
+    const url = new URL(`${BASE_URL}/api/users/register/${idToken}`);
+    try {
+      const res = await axios.post(url);
+      setLog(JSON.stringify(res.data));
+      return true;
+    } catch (err) {
+      setLog(JSON.stringify(err.response.data));
     }
   };
 

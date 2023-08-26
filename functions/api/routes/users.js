@@ -31,6 +31,20 @@ const validateUserId = async (userId) => {
   return false;
 };
 
+const register = async(profile) => {
+  const data = {
+    name: profile.name,
+    picture: profile.picture
+  }
+  const userId = profile.sub;
+  try {
+    const res = await db.collection("users").doc(userId).set(data);
+    console.log(res);
+  } catch(err) {
+    console.log(err);
+  }
+}
+
 const validateToken = async (idToken) => {
   try {
     const resValidateToken = await axios
@@ -49,9 +63,11 @@ const validateToken = async (idToken) => {
     return resValidateToken;
   } catch (err) {
     console.log(err.response.data);
-    throw new Error("Failed to verify IDtoken " + err.message);
+    //return new Error("Failed to verify IDtoken " + err.message);
+    throw "Failed to verify IDtoken " + err.message;
   }
 };
+
 
 router.get("/:idToken", async (req, res) => {
   const idToken = req.params.idToken;
@@ -65,8 +81,20 @@ router.get("/:idToken", async (req, res) => {
       res.status(404).send("the given userId was not found");
     }
   } catch(err) {
-    res.status(400).send(err);
+    res.status(400).send("idToken is invalid");
   }
 });
+
+router.post("/register/:idToken", async(req, res) => {
+  const idToken = req.params.idToken;
+  try {
+    const resValidateToken = await validateToken(idToken);
+    const profile = resValidateToken.data;
+    const result = await register(profile);
+    res.send("Register success");
+  } catch(err) {
+    res.status(400).send("Error to register")
+  }
+})
 
 module.exports = router;
