@@ -5,7 +5,7 @@ const app = express();
 const PORT = 3000;
 const NODE_ENV = process.env.NODE_ENV;
 
-const usersRoutes = require("./routes/users")
+const usersRoutes = require("./routes/users");
 
 app.use("/api/users", usersRoutes);
 app.get("/api/test", (req, res) => res.send("api success"));
@@ -17,12 +17,11 @@ const api = () => {
   app.listen(PORT, () => {
     console.log(`api app listening on port ${PORT}`);
   });
-}
+};
 
 if (NODE_ENV === "development") {
   module.exports = api;
 } else {
   //exports.api = onRequest(app)
-  exports.api = functions
-    .https.onRequest(app)
+  exports.api = functions.https.onRequest(app);
 }

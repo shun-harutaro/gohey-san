@@ -33,8 +33,8 @@ const App = () => {
       const res = await axios.get(url);
       setLog(JSON.stringify(res.data));
       return true;
-    } catch (e) {
-      setLog(JSON.stringify(e));
+    } catch (err) {
+      setLog(JSON.stringify(err.response.data));
       return false;
     }
   };
