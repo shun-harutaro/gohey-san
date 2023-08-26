@@ -64,6 +64,10 @@ node_modules/
 # dotenv environment variables file
 .env
 .env.*
+.env-cmdrc.json
 
 # Production
 dist
+
+# credentials
+credential.json

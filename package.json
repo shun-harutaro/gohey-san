@@ -7,6 +7,8 @@
     "hosting": "npm run dev -w hosting",
     "functions": "npm run dev -w functions",
     "dev": "run-p hosting functions",
+    "build": "npm run build -w hosting",
+    "dev-build": "npm run dev-build -w hosting",
     "lint": "eslint --fix ./**/*.jsx",
     "format": "prettier --write ./**/*.jsx",
     "lint-fix": "run-s lint format",
