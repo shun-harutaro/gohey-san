@@ -10,6 +10,6 @@ if (NODE_ENV === "development") {
   console.log("development mode");
   console.log(`Example app listening on port ${PORT}`);
 } else {
-  exports.api = api.api;
-  exports.bot = bot.bot;
+  exports.main = api.api;
+  exports.linebot = bot.bot;
 }

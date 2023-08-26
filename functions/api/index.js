@@ -7,10 +7,10 @@ const NODE_ENV = process.env.NODE_ENV;
 
 const usersRoutes = require("./routes/users")
 
-app.use("/users", usersRoutes);
-app.get("/**", (req, res) => {
-  res.write("Error");
-  res.end();
+app.use("/api/users", usersRoutes);
+app.get("/api/test", (req, res) => res.send("api success"));
+app.get("/api/*", (req, res) => {
+  res.send("api error");
 });
 
 const api = () => {

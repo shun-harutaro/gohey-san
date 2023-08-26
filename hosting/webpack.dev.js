@@ -18,7 +18,7 @@ module.exports = merge(common,  {
             directory: path.join(__dirname, 'public'),
         },
         */
-        open: true,
+        open: false,
         hot: true,
         liveReload: true,
         historyApiFallback: true, // これ重要

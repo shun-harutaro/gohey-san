@@ -4,11 +4,11 @@
     "rewrites": [
       {
         "source": "/api/**",
-        "function": "api"
+        "function": "main"
       },
       {
         "source": "/bot/**",
-        "function": "bot"
+        "function": "linebot"
       },
       {
         "source": "**",
@@ -40,9 +40,5 @@
     "functions": {
       "port": "3000"
     }
-  },
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
   }
 }
