@@ -6,8 +6,10 @@ const PORT = 3000;
 const NODE_ENV = process.env.NODE_ENV;
 
 const usersRoutes = require("./routes/users");
+const shopsRoutes = require("./routes/shops")
 
 app.use("/api/users", usersRoutes);
+app.use("/api/shops", shopsRoutes);
 app.get("/api/test", (req, res) => res.send("api success"));
 app.get("/api/*", (req, res) => {
   res.send("api error");

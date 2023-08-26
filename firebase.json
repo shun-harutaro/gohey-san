@@ -25,6 +25,9 @@
     {
       "source": "functions",
       "codebase": "default",
+      "predeploy": [
+        "npm --prefix \"$PROJECT_DIR\" install --legacy-peer-deps"
+      ],
       "ignore": [
         "node_modules",
         ".git",
