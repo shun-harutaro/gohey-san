@@ -23,7 +23,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}
-      {!isLiff && <h1>This app is available only LIFF browser</h1>}
+      {!isLiff && <h1>This app is only available on LIFF browser</h1>}
     </div>
   );
 };

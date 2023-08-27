@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import liff from "@line/liff";
 import axios from "axios";
-//import { Auth } from "../auth/Auth";
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-import Button from "@mui/material/Button"
+import { Button, Alert } from "@mui/material"
 
 export const CheckIn = () => {
-  const [result, setResult] = useState("");
+  const [error, setError] = useState("");
+  const [liffLog, setLiffLog] = useState("");
   const [listCheckedIn, setListCheckedIn] = useState([]);
 
   useEffect(async() => {
@@ -22,7 +22,7 @@ export const CheckIn = () => {
     const shopId = scanResult.value;
     try {
       if (isNaN(Number(shopId)) || !shopId)
-        throw "QRcode is invalid";
+        throw "不正なQRコードです";
       await checkIn(idToken, shopId);
       liff.sendMessages([
         {
@@ -32,7 +32,7 @@ export const CheckIn = () => {
       ]);
       liff.closeWindow();
     } catch(err) {
-      setResult("check in failed");
+      setError(err);
     }
   };
 
@@ -40,10 +40,10 @@ export const CheckIn = () => {
     const url = new URL(`${BASE_URL}/api/users/${idToken}/shops/${shopId}`);
     try {
       const res = await axios.put(url);
-      setResult(JSON.stringify(res.data));
+      setLiffLog(JSON.stringify(res.data));
       return true;
     } catch (err) {
-      setResult(JSON.stringify(err.response.data));
+      setError(JSON.stringify(err.response.data));
     }
   };
 
@@ -52,16 +52,20 @@ export const CheckIn = () => {
     try {
       const res = await axios.get(url);
       const arrayCheckedInShops = res.data;
-      setResult(JSON.stringify(arrayCheckedInShops));
+      setLiffLog(JSON.stringify(arrayCheckedInShops));
       setListCheckedIn(arrayCheckedInShops);
       return true;
     } catch (err) {
-      setResult("Error");
+      setError("Error");
     }
   };
 
   return (
       <div>
+        { error && <Alert severity="error">
+          {error}
+        </Alert> }
+        { false && <p>log: {liffLog}</p> /*debug*/}
         <Button
           variant="contained"
           color="primary"
@@ -69,7 +73,6 @@ export const CheckIn = () => {
         >
           Scan QR Code
         </Button>
-        <p>result: {result}</p>
         <ul>
           { listCheckedIn && listCheckedIn.map(shop => (
             <li key={shop.id}>

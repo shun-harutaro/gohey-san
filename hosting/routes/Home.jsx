@@ -48,8 +48,12 @@ export const Home = () => {
 
   return (
     <div>
-      <p>Log: {log}</p>
-      <p>Message: {message}</p>
+      {false &&
+        <div>
+          <p>Log: {log}</p>
+          <p>Message: {message}</p>
+        </div>
+      /*debug*/}
       <p>遷移中</p>
     </div>
   );
