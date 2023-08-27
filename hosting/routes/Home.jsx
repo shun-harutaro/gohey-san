@@ -3,12 +3,15 @@ import axios from "axios";
 import liff from "@line/liff"
 const BASE_URL = process.env.REACT_APP_API_URL;
 
+import { CircularProgress, Box, Container } from "@mui/material"
+
 export const Home = () => {
   const [message, setMessage] = useState("");
   const [log, setLog] = useState("");
   const initLiff = async () => {
     await liff.init({ liffId: process.env.REACT_APP_LIFF_ID });
     if (liff.isInClient()) {
+      /*
       const idToken = liff.getIDToken();
       const isResistered = await validateIsResistered(idToken);
       if (isResistered) {
@@ -17,6 +20,7 @@ export const Home = () => {
         setMessage("you are not resistered");
         await register(idToken);
       }
+      */
     }
   };
 
@@ -54,7 +58,9 @@ export const Home = () => {
           <p>Message: {message}</p>
         </div>
       /*debug*/}
-      <p>遷移中</p>
+      <Box sx={{ height: '100vh' }} display="flex" alignItems="center" justifyContent="center">
+        <CircularProgress size={200} />
+      </Box>
     </div>
   );
 };

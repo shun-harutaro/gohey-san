@@ -3,7 +3,8 @@ import liff from "@line/liff";
 import axios from "axios";
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-import { Button, Alert } from "@mui/material"
+import { Button, Alert, Box, Stack, Paper } from "@mui/material"
+import { WidthNormal } from "@mui/icons-material";
 
 export const CheckIn = () => {
   const [error, setError] = useState("");
@@ -66,22 +67,25 @@ export const CheckIn = () => {
           {error}
         </Alert> }
         { false && <p>log: {liffLog}</p> /*debug*/}
+        <h1>五平餅スタンプラリー</h1>
         <Button
           variant="contained"
           color="primary"
           onClick={handleScan}
         >
-          Scan QR Code
+          ここからチェックイン
         </Button>
-        <ul>
+        <Box >
+        <Stack spacing={2}>
           { listCheckedIn && listCheckedIn.map(shop => (
-            <li key={shop.id}>
-              shopId: {shop.shopId}
-              data: {(new Date(shop.checkedInAt._seconds * 1000)).toLocaleString()}
-            </li>
+            <Paper sx={{ width: "80vw" }} display="flex" alignItems="center" justifyContent="center" >
+              <h3>shopId: {shop.shopId}</h3>
+              <p>data: {(new Date(shop.checkedInAt._seconds * 1000)).toLocaleString()}</p>
+            </Paper>
             ))
           }
-        </ul>
+        </Stack>
+        </Box>
       </div>
   )
 };
