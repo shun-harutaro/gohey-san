@@ -4,6 +4,8 @@ import axios from "axios";
 //import { Auth } from "../auth/Auth";
 const BASE_URL = process.env.REACT_APP_API_URL;
 
+import Button from "@mui/material/Button"
+
 export const CheckIn = () => {
   const [result, setResult] = useState("");
   const [listCheckedIn, setListCheckedIn] = useState([]);
@@ -60,7 +62,13 @@ export const CheckIn = () => {
 
   return (
       <div>
-        <button onClick={handleScan}>Scan QR Code</button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleScan}
+        >
+          Scan QR Code
+        </Button>
         <p>result: {result}</p>
         <ul>
           { listCheckedIn && listCheckedIn.map(shop => (
