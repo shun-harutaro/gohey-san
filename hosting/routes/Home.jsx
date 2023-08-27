@@ -36,7 +36,7 @@ export const Home = () => {
   };
 
   const register = async (idToken) => {
-    const url = new URL(`${BASE_URL}/api/users/register/${idToken}`);
+    const url = new URL(`${BASE_URL}/api/users/${idToken}`);
     try {
       const res = await axios.post(url);
       setLog(JSON.stringify(res.data));
