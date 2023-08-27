@@ -47,6 +47,25 @@ const register = async(profile) => {
   }
 }
 
+const fetchCheckedInShops = async(userId) => {
+  const userShopHistoryRef = db.collection("users").doc(userId).collection("shop-history")
+  try {
+    const snapshot = await userShopHistoryRef.get();
+    if (snapshot.empty)
+      throw "there are not sub-collection shop-history";
+    const arrayCheckedInShops = [];
+    snapshot.forEach(doc => {
+      arrayCheckedInShops.push({
+        id: doc.id,
+        ...doc.data()
+      })
+    })
+    return arrayCheckedInShops;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
 const checkIn = async(userId, shopId) => {
   const userShopHistoryRef = db.collection("users").doc(userId).collection("shop-history");
   try {
@@ -55,7 +74,7 @@ const checkIn = async(userId, shopId) => {
       console.log("there are not sub-collection shop-history")
     }
     const data = {
-      checkInAt: Timestamp.now(),
+      checkedInAt: Timestamp.now(),
       shopId: shopId
     }
     const res = await userShopHistoryRef.add(data);
@@ -106,6 +125,19 @@ router.get("/:idToken", async (req, res) => {
   }
 });
 
+router.get("/:idToken/shops", async(req, res) => {
+  const idToken = req.params.idToken;
+  try {
+    const resValidateToken = await validateToken(idToken);
+    const userId = resValidateToken.data.sub;
+    const arrayCheckedInShops = await fetchCheckedInShops(userId);
+    res.send(arrayCheckedInShops);
+  } catch(err) {
+    console.log(err);
+    res.status(400).send("Error to fetch data")
+  }
+})
+
 router.post("/:idToken", async(req, res) => {
   const idToken = req.params.idToken;
   try {
@@ -119,7 +151,7 @@ router.post("/:idToken", async(req, res) => {
   }
 })
 
-router.put("/:idToken/shop/:shopId", async(req, res) => {
+router.put("/:idToken/shops/:shopId", async(req, res) => {
   const idToken = req.params.idToken;
   const shopId = req.params.shopId;
   try {
