@@ -17,11 +17,11 @@ export const CheckIn = () => {
   }, []);
 
   const handleScan = async() => {
-    const result = await liff.scanCodeV2();
+    const scanResult = await liff.scanCodeV2();
     const idToken = liff.getIDToken();
-    const shopId = result.value;
+    const shopId = scanResult.value;
     try {
-      if (isNaN(Number(shopId)))
+      if (isNaN(Number(shopId)) || !shopId)
         throw "QRcode is invalid";
       await checkIn(idToken, shopId);
       liff.sendMessages([
