@@ -8,10 +8,6 @@ export const Home = () => {
   const [log, setLog] = useState("");
   const initLiff = async () => {
     await liff.init({ liffId: process.env.REACT_APP_LIFF_ID });
-    /*
-    if (!liff.isLoggedIn()) {
-      liff.login({}); // ログインしてなければログイン
-    } else */
     if (liff.isInClient()) {
       const idToken = liff.getIDToken();
       const isResistered = await validateIsResistered(idToken);

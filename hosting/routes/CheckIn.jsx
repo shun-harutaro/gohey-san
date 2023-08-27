@@ -8,15 +8,8 @@ export const CheckIn = () => {
   const [result, setResult] = useState("");
   const [listCheckedIn, setListCheckedIn] = useState([]);
 
-  const initLiff = async () => {
-    await liff.init({ liffId: process.env.REACT_APP_LIFF_ID });
-    if (liff.isInClient()) {
-      /* いらない */
-    }
-  };
-
   useEffect(async() => {
-    await initLiff();
+    await liff.init({ liffId: process.env.REACT_APP_LIFF_ID });
     const idToken = liff.getIDToken();
     await fetchCheckedInShops(idToken);
   }, []);
