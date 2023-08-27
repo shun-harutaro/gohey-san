@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --config ./webpack.dev.js",
+    "dev-build": "webpack --config ./webpack.dev.js",
     "build": "webpack --config ./webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@line/liff": "^2.22.2",
+    "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0"

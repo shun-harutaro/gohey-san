@@ -1,18 +1,19 @@
 {
   "hosting": {
     "public": "./hosting/dist",
-    "rewrites": [{
-      "source": "/api/**",
-      "function": "api"
-    },
-    {
-      "source": "/bot/**",
-      "function": "bot"
-    },
-    {
-      "source": "**",
-      "destination": "/index.html"
-    }
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "function": "main"
+      },
+      {
+        "source": "/bot/**",
+        "function": "linebot"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ],
     "ignore": [
       "firebase.json",
@@ -24,6 +25,9 @@
     {
       "source": "functions",
       "codebase": "default",
+      "predeploy": [
+        "npm --prefix \"$PROJECT_DIR\" install --legacy-peer-deps"
+      ],
       "ignore": [
         "node_modules",
         ".git",
@@ -33,11 +37,11 @@
     }
   ],
   "emulators": {
-      "hosting": {
-        "port": "8080"
-      },
-      "functions": {
-        "port": "3000"
-      }
+    "hosting": {
+      "port": "8080"
+    },
+    "functions": {
+      "port": "3000"
+    }
   }
 }
