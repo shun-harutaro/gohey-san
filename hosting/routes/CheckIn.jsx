@@ -11,8 +11,7 @@ export const CheckIn = () => {
   const initLiff = async () => {
     await liff.init({ liffId: process.env.REACT_APP_LIFF_ID });
     if (liff.isInClient()) {
-      const idToken = liff.getIDToken();
-      await checkIn(idToken);
+      /* いらない */
     }
   };
 
@@ -20,14 +19,28 @@ export const CheckIn = () => {
     initLiff();
   }, []);
 
-  const handleScan = () => {
-    liff.scanCodeV2().then((result) => {
-      setQrCodeData(result.value ?? '');
-    });
+  const handleScan = async() => {
+    const result = await liff.scanCodeV2();
+    const idToken = liff.getIDToken();
+    const shopId = result.value;
+    try {
+      if (isNaN(Number(shopId)))
+        throw "QRcode is invalid";
+      await checkIn(idToken, shopId);
+      liff.sendMessages([
+        {
+          type: "text",
+          text: "check in success"
+        }
+      ]);
+      liff.closeWindow();
+    } catch(err) {
+      setResult("check in failed");
+    }
   };
 
-  const checkIn = async (idToken) => {
-    const url = new URL(`${BASE_URL}/api/users/${idToken}/shop/0`);
+  const checkIn = async (idToken, shopId) => {
+    const url = new URL(`${BASE_URL}/api/users/${idToken}/shop/${shopId}`);
     try {
       const res = await axios.put(url);
       setResult(JSON.stringify(res.data));
