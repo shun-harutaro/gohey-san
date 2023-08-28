@@ -7,6 +7,7 @@ const app = express();
 const PORT = 3001;
 
 const NODE_ENV = process.env.NODE_ENV;
+const BASE_URL = process.env.BASE_URL;
 require("dotenv").config();
 //const channelAccessToken = defineSecret("CHANNEL_ACCESS_TOKEN");
 //const channelSecret = defineSecret("CHANNEL_SECRET");
@@ -213,16 +214,18 @@ const handleEvent = (event) => {
   }
 
   if (event.message.text.includes('>region?')) {
+    const region = event.message.text.slice(8);
     return client.replyMessage(event.replyToken, {
       type: "text",
-      text: "6件見つかりました"
+      text: `こちらのお店が見つかりました。\n${BASE_URL}/shops/?region=${region}`
     });
   }
 
   if (event.message.text.includes('>shape?')) {
+    const shape = event.message.text.slice(7);
     return client.replyMessage(event.replyToken, {
       type: "text",
-      text: "6件見つかりました"
+      text: `こちらのお店が見つかりました。\n${BASE_URL}/shops/?shape=${shape}`
     });
   }
 
