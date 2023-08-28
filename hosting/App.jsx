@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./routes/Home";
 import { CheckIn } from "./routes/CheckIn";
+import { Shops } from "./routes/Shops";
 import { NotFound } from "./routes/NotFound";
 import liff from "@line/liff";
 
@@ -20,6 +21,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/checkin" element={<CheckIn />} />
+          <Route path="/shops" element={<Shops />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}
