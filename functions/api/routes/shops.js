@@ -19,6 +19,15 @@ const loadShopSheetRows = async() => {
   const rows = await sheet.getRows();
   return rows
 }
+/*
+router.get("/", async(req, res) => {
+  if (req.query.region) {
+    const rows = await loadShopSheetRows(region);
+    const shopsInfo = rows[];
+    res.send(shopsInfo);
+  } else if(req.query.shape)
+})
+*/
 
 router.get("/:shopId", async (req, res) => {
   const shopId = req.params.shopId;
