@@ -28,7 +28,7 @@ app.get("/bot/*", (req, res) => {
 
 const client = new line.Client(config);
 const handleEvent = (event) => {
-  if (event.type !== "message" || event.message.type !== "text") {
+  if (event.type !== "message" || event.message.type !== "text" || event.message.type !== "image") {
     return Promise.resolve(null);
   }
   if (event.message.text === ">search") {
@@ -229,7 +229,14 @@ const handleEvent = (event) => {
     });
   }
 
-  if (event)
+  if (event.message.type === "image") {
+    return client.replyMessage(event.replyToken, {
+      type: "text",
+      text: `画像をアップロードしました。これからも良い五平餅ライフを！`
+    });
+  }
+
+  if (event.message.text === "チェックインしました！")
   return client.replyMessage(event.replyToken, {
     type: "text",
     text: "不正な入力です。もう一度お試しください"

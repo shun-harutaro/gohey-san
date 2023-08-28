@@ -104,7 +104,8 @@ export const Shops = () => {
         <Stack spacing={2}>
           { fetchedShopsList && fetchedShopsList.map(shop => (
             <Paper sx={{ width: "80vw" }} display="flex" alignItems="center" justifyContent="center" >
-              <h3>{shop[1]}</h3>
+              <h2>{shop[1]}</h2>
+              <p>エリア：{shop[2]} / 味：{shop[3]} / 形：{shop[4]}形 / 値段：{shop[5]}円</p>
             </Paper>
             ))
           }
