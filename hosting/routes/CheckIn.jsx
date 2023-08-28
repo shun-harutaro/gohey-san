@@ -4,12 +4,13 @@ import axios from "axios";
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 import { Button, Alert, Box, Stack, Paper } from "@mui/material"
-import { WidthNormal } from "@mui/icons-material";
+//import { WidthNormal } from "@mui/icons-material";
 
 export const CheckIn = () => {
   const [error, setError] = useState("");
   const [liffLog, setLiffLog] = useState("");
   const [listCheckedIn, setListCheckedIn] = useState([]);
+  const [fetchedShopsList, setFetchedShopsList] = useState([]);
 
   useEffect(async() => {
     await liff.init({ liffId: process.env.REACT_APP_LIFF_ID });
@@ -48,13 +49,31 @@ export const CheckIn = () => {
     }
   };
 
+  const convertCheckedInShops = async (arrayShops) => {
+    const arrayShopId = arrayShops.map(shop => {
+      return shop.shopId
+    })
+    const shopsList = {};
+    try {
+    await Promise.all(arrayShopId.map(async shopId => {
+      const url = new URL(`${BASE_URL}/api/shops/${shopId}`);
+      const res = await axios.get(url);
+      shopsList[shopId] = res.data;
+    }));
+    return shopsList;
+    } catch(err) {
+      setError("Error to Convert")
+    }
+  }
+
   const fetchCheckedInShops = async (idToken) => {
     const url = new URL(`${BASE_URL}/api/users/${idToken}/shops`);
     try {
       const res = await axios.get(url);
       const arrayCheckedInShops = res.data;
-      setLiffLog(JSON.stringify(arrayCheckedInShops));
+      const shopsList = await convertCheckedInShops(arrayCheckedInShops);
       setListCheckedIn(arrayCheckedInShops);
+      setFetchedShopsList(shopsList);
       return true;
     } catch (err) {
       setError("Error");
@@ -77,9 +96,9 @@ export const CheckIn = () => {
         </Button>
         <Box >
         <Stack spacing={2}>
-          { listCheckedIn && listCheckedIn.map(shop => (
+          { listCheckedIn && fetchedShopsList && listCheckedIn.map(shop => (
             <Paper sx={{ width: "80vw" }} display="flex" alignItems="center" justifyContent="center" >
-              <h3>shopId: {shop.shopId}</h3>
+              <h3>{fetchedShopsList[shop.shopId][1]}</h3>
               <p>data: {(new Date(shop.checkedInAt._seconds * 1000)).toLocaleString()}</p>
             </Paper>
             ))
